@@ -1,0 +1,29 @@
+#pragma kernel NormalizeImage
+
+// Input image texture
+Texture2D<float4> InputImage;
+
+// Output image texture
+RWTexture2D<float4> Result;
+
+// Structured buffer to hold the mean values for each color channel (r, g, b)
+RWStructuredBuffer<float> mean;
+
+// Structured buffer to hold the standard deviation values for each color channel (r, g, b)
+RWStructuredBuffer<float> std;
+
+// The compute shader kernel
+[numthreads(8, 8, 1)]
+void NormalizeImage(uint3 id : SV_DispatchThreadID)
+{
+    // Normalize the color values for each channel (r, g, b)
+    Result[id.xy] = float4(
+        // Normalize the red channel
+        (InputImage[id.xy].r - mean[0]) / std[0],
+        // Normalize the green channel
+        (InputImage[id.xy].g - mean[1]) / std[1],
+        // Normalize the blue channel
+        (InputImage[id.xy].b - mean[2]) / std[2],
+        // Leave the alpha channel unchanged
+        InputImage[id.xy].a);
+}

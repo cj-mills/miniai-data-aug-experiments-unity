@@ -529,6 +529,16 @@ public class BarracudaImageClassifier : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Update the minimum confidence score for keeping predictions
+    /// </summary>
+    /// <param name="slider"></param>
+    public void UpdateConfidenceThreshold(Slider slider)
+    {
+        minConfidence = slider.value;
+    }
+
+
     // Display GUI elements on the screen
     public void OnGUI()
     {

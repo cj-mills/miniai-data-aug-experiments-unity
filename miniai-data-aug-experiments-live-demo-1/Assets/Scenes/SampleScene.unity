@@ -233,6 +233,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b76ec58d3aef1a344a75d7d427250dc4, type: 3}
+    - target: {fileID: 6043104170394320678, guid: f88f35dae7d5b4c4781761f5e6b24247, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 713862437}
+    - target: {fileID: 6043104170394320678, guid: f88f35dae7d5b4c4781761f5e6b24247, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateConfidenceThreshold
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043104170394320678, guid: f88f35dae7d5b4c4781761f5e6b24247, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BarracudaImageClassifier, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6043104170394320679, guid: f88f35dae7d5b4c4781761f5e6b24247, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -180

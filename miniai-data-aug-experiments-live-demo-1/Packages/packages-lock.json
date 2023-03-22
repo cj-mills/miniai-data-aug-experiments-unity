@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "com.cj-mills.cv-image-gallery": {
+      "version": "https://github.com/cj-mills/unity-cv-image-gallery.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "dc0fdbae0f7246cfd111fec1683dcedaec606989"
+    },
+    "com.cj-mills.unity-media-display": {
+      "version": "https://github.com/cj-mills/Unity-Media-Display.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "a95bf7d6bf232f3a9ee2e27796075c462dc10eda"
+    },
     "com.unity.2d.animation": {
       "version": "9.0.1",
       "depth": 1,

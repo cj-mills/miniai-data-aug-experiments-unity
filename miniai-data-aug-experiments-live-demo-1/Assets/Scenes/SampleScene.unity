@@ -697,7 +697,7 @@ MonoBehaviour:
   targetDim: 288
   processingShader: {fileID: 7200000, guid: 745d67b6609760d428fc14223a9e1e72, type: 3}
   processingMaterial: {fileID: 2100000, guid: 97218c13c96b8ab4eb6c8455a701b016, type: 2}
-  modelAsset: {fileID: 5022602860645237092, guid: 66c59caaf19667b44b3839950b6aaaa4, type: 3}
+  modelAsset: {fileID: 5022602860645237092, guid: 87ac67f0c08f6ab49a105e5d6892b3f2, type: 3}
   softmaxLayer: softmaxLayer
   outputLayerIndex: 0
   useNCHW: 1
@@ -921,6 +921,7 @@ MonoBehaviour:
   screenObject: {fileID: 1691310732}
   cameraObject: {fileID: 519420028}
   testTexture: {fileID: 2800000, guid: dec7383712d99a041951d039f927ed5a, type: 3}
+  maxFrameRate: 500
   useWebcam: 0
   webcamDims: {x: 1280, y: 720}
   webcamFrameRate: 60

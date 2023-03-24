@@ -2,6 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Unity.Barracuda;
+using System;
 
 namespace BarracudaInferenceToolkit
 {
@@ -76,7 +77,55 @@ namespace BarracudaInferenceToolkit
         /// </summary>
         private void LoadClassLabels()
         {
-            classes = JsonUtility.FromJson<ClassLabels>(classLabels.text).classes;
+            if (IsClassLabelsJsonNullOrEmpty())
+            {
+                Debug.LogError("Class labels JSON is null or empty.");
+                return;
+            }
+
+            ClassLabels classLabelsObj = DeserializeClassLabels(classLabels.text);
+            UpdateClassLabels(classLabelsObj);
+        }
+
+        /// <summary>
+        /// Check if the provided class labels JSON file is null or empty.
+        /// </summary>
+        /// <returns>True if the file is null or empty, otherwise false.</returns>
+        private bool IsClassLabelsJsonNullOrEmpty()
+        {
+            return classLabels == null || string.IsNullOrWhiteSpace(classLabels.text);
+        }
+
+        /// <summary>
+        /// Deserialize the provided class labels JSON string to a ClassLabels object.
+        /// </summary>
+        /// <param name="json">The JSON string to deserialize.</param>
+        /// <returns>A deserialized ClassLabels object.</returns>
+        private ClassLabels DeserializeClassLabels(string json)
+        {
+            try
+            {
+                return JsonUtility.FromJson<ClassLabels>(json);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to deserialize class labels JSON: {ex.Message}");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Update the classes array with the provided ClassLabels object.
+        /// </summary>
+        /// <param name="classLabelsObj">The ClassLabels object containing the class labels.</param>
+        private void UpdateClassLabels(ClassLabels classLabelsObj)
+        {
+            if (classLabelsObj == null)
+            {
+                return;
+            }
+
+            classes = classLabelsObj.classes;
         }
 
         /// <summary>

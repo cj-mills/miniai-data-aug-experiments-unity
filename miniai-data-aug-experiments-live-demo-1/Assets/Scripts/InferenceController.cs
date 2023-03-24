@@ -1,3 +1,4 @@
+using BarracudaInferenceToolkit;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class InferenceController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private ImageProcessor imageProcessor;
-    [SerializeField] private ModelRunner modelRunner;
+    [SerializeField] private MultiClassImageClassifier modelRunner;
     [SerializeField] private InferenceUI inferenceUI;
 
     [Header("Settings")]

@@ -800,14 +800,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   processingShader: {fileID: 7200000, guid: 745d67b6609760d428fc14223a9e1e72, type: 3}
   processingMaterial: {fileID: 2100000, guid: 97218c13c96b8ab4eb6c8455a701b016, type: 2}
-  mean:
-  - 0.485
-  - 0.456
-  - 0.406
-  std:
-  - 0.229
-  - 0.224
-  - 0.225
+  normStatsJson: {fileID: 4900000, guid: 3c91d872bde7bcc46844378023ee45a7, type: 3}
   targetDim: 288
 --- !u!114 &1290204710
 MonoBehaviour:

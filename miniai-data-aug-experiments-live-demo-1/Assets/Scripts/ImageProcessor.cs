@@ -90,7 +90,7 @@ public class ImageProcessor : MonoBehaviour
     /// <param name="image">The image to be processed.</param>
     public void ProcessImageShader(RenderTexture image)
     {
-        RenderTexture result = GetTemporaryRenderTexture(image);
+        RenderTexture result = GetTemporaryRenderTexture(image, false);
 
         RenderTexture.active = result;
         Graphics.Blit(image, result, processingMaterial);
@@ -103,11 +103,12 @@ public class ImageProcessor : MonoBehaviour
     /// Creates a temporary render texture with the same dimensions as the given image.
     /// </summary>
     /// <param name="image">The image to match dimensions with.</param>
+    /// <param name="enableRandomWrite">Enable random access write into the RenderTexture.</param>
     /// <returns>A temporary render texture.</returns>
-    private RenderTexture GetTemporaryRenderTexture(RenderTexture image)
+    private RenderTexture GetTemporaryRenderTexture(RenderTexture image, bool enableRandomWrite=true)
     {
         RenderTexture result = RenderTexture.GetTemporary(image.width, image.height, 24, RenderTextureFormat.ARGBHalf);
-        result.enableRandomWrite = true;
+        result.enableRandomWrite = enableRandomWrite;
         result.Create();
         return result;
     }

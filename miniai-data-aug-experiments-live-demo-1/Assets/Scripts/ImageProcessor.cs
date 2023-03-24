@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,25 +16,95 @@ public class ImageProcessor : MonoBehaviour
     [SerializeField] private Material processingMaterial;
 
     [Header("Normalization Parameters")]
-    [Tooltip("The mean values for normalization")]
-    [SerializeField] private float[] mean;
-    [Tooltip("The standard deviation values for normalization")]
-    [SerializeField] private float[] std;
+    [Tooltip("JSON file with the mean and std values for normalization")]
+    [SerializeField] private TextAsset normStatsJson = null;
 
     [Header("Data Processing")]
     [Tooltip("The target dimensions for the processed image")]
     [SerializeField] private int targetDim = 288;
 
-    private ComputeBuffer meanBuffer; // Buffer for mean values used in compute shader
-    private ComputeBuffer stdBuffer; // Buffer for standard deviation values used in compute shader
+    [System.Serializable]
+    private class NormStats
+    {
+        public float[] mean;
+        public float[] std;
+    }
+
+    // The mean values for normalization
+    private float[] mean = new float[] { 0f, 0f, 0f };
+    // The standard deviation values for normalization
+    private float[] std = new float[] { 1f, 1f, 1f };
+
+    // Buffer for mean values used in compute shader
+    private ComputeBuffer meanBuffer;
+    // Buffer for standard deviation values used in compute shader
+    private ComputeBuffer stdBuffer;
 
     /// <summary>
     /// Called when the script is initialized.
     /// </summary>
     private void Start()
     {
+        LoadNormStats();
         InitializeProcessingShaders();
     }
+
+    /// <summary>
+    /// Load the normalization stats from the provided JSON file.
+    /// </summary>
+    private void LoadNormStats()
+    {
+        if (IsNormStatsJsonNullOrEmpty())
+        {
+            return;
+        }
+
+        NormStats normStats = DeserializeNormStats(normStatsJson.text);
+        UpdateNormalizationStats(normStats);
+    }
+
+    /// <summary>
+    /// Check if the provided JSON file is null or empty.
+    /// </summary>
+    /// <returns>True if the file is null or empty, otherwise false.</returns>
+    private bool IsNormStatsJsonNullOrEmpty()
+    {
+        return normStatsJson == null || string.IsNullOrWhiteSpace(normStatsJson.text);
+    }
+
+    /// <summary>
+    /// Deserialize the provided JSON string to a NormStats object.
+    /// </summary>
+    /// <param name="json">The JSON string to deserialize.</param>
+    /// <returns>A deserialized NormStats object.</returns>
+    private NormStats DeserializeNormStats(string json)
+    {
+        try
+        {
+            return JsonUtility.FromJson<NormStats>(json);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to deserialize normalization stats JSON: {ex.Message}");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Update the mean and standard deviation with the provided NormStats object.
+    /// </summary>
+    /// <param name="normStats">The NormStats object containing the mean and standard deviation.</param>
+    private void UpdateNormalizationStats(NormStats normStats)
+    {
+        if (normStats == null)
+        {
+            return;
+        }
+
+        mean = normStats.mean;
+        std = normStats.std;
+    }
+
 
     /// <summary>
     /// Initializes the processing shaders by setting the mean and standard deviation values.

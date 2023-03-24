@@ -18,8 +18,8 @@ Shader "Processing Shaders/NormalizeImage"
             #include "UnityCG.cginc"
 
             // Uniform arrays to hold the mean and standard deviation values for each color channel (r, g, b)
-            uniform float mean[3];
-            uniform float std[3];
+            uniform float _Mean[3];
+            uniform float _Std[3];
 
             struct appdata
             {
@@ -49,9 +49,9 @@ Shader "Processing Shaders/NormalizeImage"
                 // Sample the input image
                 float4 col = tex2D(_MainTex, i.uv);
                 // Normalize each color channel (r, g, b)
-                col.r = (col.r - mean[0]) / std[0];
-                col.g = (col.g - mean[1]) / std[1];
-                col.b = (col.b - mean[2]) / std[2];
+                col.r = (col.r - _Mean[0]) / _Std[0];
+                col.g = (col.g - _Mean[1]) / _Std[1];
+                col.b = (col.b - _Mean[2]) / _Std[2];
                 // Return the normalized color values
                 return col;
             }

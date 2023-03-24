@@ -10,7 +10,7 @@ using System.Linq;
 public class BarracudaImageClassifier : MonoBehaviour
 {
     [Tooltip("Screen object in the scene")]
-    public Transform screen;
+    public MeshRenderer screenRenderer;
 
     [Header("Data Processing")]
     [Tooltip("Target input dimensions for the model")]
@@ -59,8 +59,6 @@ public class BarracudaImageClassifier : MonoBehaviour
     [Range(0.01f, 1.0f)]
     public float fpsRefreshRate = 0.1f;
 
-    // Dimensions of the test image
-    private Vector2Int imageDims;
     // Texture of the test image
     private Texture imageTexture;
     // Dimensions of the current screen object
@@ -294,11 +292,13 @@ public class BarracudaImageClassifier : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        imageTexture = screen.gameObject.GetComponent<MeshRenderer>().material.mainTexture;
+        imageTexture = screenRenderer.material.mainTexture;
+
+        return;
 
         // Calculate the input dimensions
-        screenDims.x = (int)screen.transform.localScale.x;
-        screenDims.y = (int)screen.transform.localScale.y;
+        screenDims.x = imageTexture.width;
+        screenDims.y = imageTexture.height;
         Vector2Int inputDims = CalculateInputDims(screenDims, targetDim);
         if (printDebugMessages) Debug.Log($"Input Dims: {inputDims.x} x {inputDims.y}");
 
@@ -360,42 +360,42 @@ public class BarracudaImageClassifier : MonoBehaviour
     // Display GUI elements on the screen
     public void OnGUI()
     {
-        // Set up the style for the GUI labels
-        GUIStyle style = new GUIStyle
-        {
-            fontSize = (int)(Screen.width * (1f / (100f - fontScale)))
-        };
-        style.normal.textColor = textColor;
+        //// Set up the style for the GUI labels
+        //GUIStyle style = new GUIStyle
+        //{
+        //    fontSize = (int)(Screen.width * (1f / (100f - fontScale)))
+        //};
+        //style.normal.textColor = textColor;
 
-        // Define the rectangular positions for the two labels
-        Rect slot1 = new Rect(10, 10, 500, 500);
-        Rect slot2 = new Rect(10, style.fontSize * 1.5f, 500, 500);
+        //// Define the rectangular positions for the two labels
+        //Rect slot1 = new Rect(10, 10, 500, 500);
+        //Rect slot2 = new Rect(10, style.fontSize * 1.5f, 500, 500);
 
-        // Return if the output array is empty
-        if (output_array.Length <= 0) return;
+        //// Return if the output array is empty
+        //if (output_array.Length <= 0) return;
 
-        // Find the index of the maximum value in the output array
-        classIndex = Array.IndexOf(output_array, output_array.Max());
+        //// Find the index of the maximum value in the output array
+        //classIndex = Array.IndexOf(output_array, output_array.Max());
 
-        // Calculate the label text based on the predicted class and its confidence
-        string labelText = $"{classes[classIndex]} {(output_array[classIndex] * 100).ToString("0.##")}%";
-        if (output_array[classIndex] < minConfidence) labelText = "None";
+        //// Calculate the label text based on the predicted class and its confidence
+        //string labelText = $"{classes[classIndex]} {(output_array[classIndex] * 100).ToString("0.##")}%";
+        //if (output_array[classIndex] < minConfidence) labelText = "None";
 
-        // Determine the content for the first label
-        bool validIndex = classIndex >= 0 && classIndex < classes.Length;
-        string content = validIndex ? $"Predicted Class: {labelText}" : "Loading Model...";
-        if (displayPredictedClass) GUI.Label(slot1, new GUIContent(content), style);
+        //// Determine the content for the first label
+        //bool validIndex = classIndex >= 0 && classIndex < classes.Length;
+        //string content = validIndex ? $"Predicted Class: {labelText}" : "Loading Model...";
+        //if (displayPredictedClass) GUI.Label(slot1, new GUIContent(content), style);
 
-        // Calculate and display the FPS
-        if (Time.unscaledTime > fpsTimer)
-        {
-            fps = (int)(1f / Time.unscaledDeltaTime);
-            fpsTimer = Time.unscaledTime + fpsRefreshRate;
-        }
+        //// Calculate and display the FPS
+        //if (Time.unscaledTime > fpsTimer)
+        //{
+        //    fps = (int)(1f / Time.unscaledDeltaTime);
+        //    fpsTimer = Time.unscaledTime + fpsRefreshRate;
+        //}
 
-        // Adjust screen position when not showing predicted class
-        Rect fpsRect = displayPredictedClass ? slot2 : slot1;
-        if (displayFPS) GUI.Label(fpsRect, new GUIContent($"FPS: {fps}"), style);
+        //// Adjust screen position when not showing predicted class
+        //Rect fpsRect = displayPredictedClass ? slot2 : slot1;
+        //if (displayFPS) GUI.Label(fpsRect, new GUIContent($"FPS: {fps}"), style);
     }
 
 

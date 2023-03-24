@@ -758,7 +758,7 @@ GameObject:
   - component: {fileID: 1290204711}
   - component: {fileID: 1290204710}
   - component: {fileID: 1290204709}
-  - component: {fileID: 1290204708}
+  - component: {fileID: 1290204712}
   - component: {fileID: 1290204707}
   m_Layer: 0
   m_Name: InferenceManager
@@ -786,25 +786,6 @@ MonoBehaviour:
   maxFontSize: 24
   fpsRefreshRate: 0.1
   displayFPS: 1
---- !u!114 &1290204708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1290204706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18eaf31b05551dd468503d358f75c82d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 5022602860645237092, guid: 87ac67f0c08f6ab49a105e5d6892b3f2, type: 3}
-  softmaxLayer: softmaxLayer
-  outputLayerIndex: 0
-  useNCHW: 1
-  workerType: 32768
-  useAsyncGPUReadback: 1
-  classLabels: {fileID: 4900000, guid: 566077fb26554df44b493dc77d3e0af2, type: 3}
 --- !u!114 &1290204709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,7 +822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageProcessor: {fileID: 1290204709}
-  modelRunner: {fileID: 1290204708}
+  modelRunner: {fileID: 1290204712}
   inferenceUI: {fileID: 1290204707}
   screenRenderer: {fileID: 1691310735}
   printDebugMessages: 0
@@ -860,6 +841,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1290204712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290204706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b79a5a6c1b5c78845a8d01177b14c065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 5022602860645237092, guid: 87ac67f0c08f6ab49a105e5d6892b3f2, type: 3}
+  useNCHW: 1
+  workerType: 32768
+  softmaxLayer: softmaxLayer
+  outputLayerIndex: 0
+  useAsyncGPUReadback: 1
+  classLabels: {fileID: 4900000, guid: 566077fb26554df44b493dc77d3e0af2, type: 3}
 --- !u!224 &1342013693 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 365967725391423246, guid: 08eb2b01a2de9654a8e6b73da219a9a9, type: 3}

@@ -53,11 +53,19 @@ namespace BarracudaInferenceToolkit
             // Load and prepare the model with the base implementation
             base.LoadAndPrepareModel();
 
-            // Get the output layer name
-            string outputLayer = modelBuilder.model.outputs[outputLayerIndex];
+            // Check if the last layer is a Softmax layer
+            Layer lastLayer = modelBuilder.model.layers[modelBuilder.model.layers.Count - 1];
+            bool lastLayerIsSoftmax = lastLayer.activation == Layer.Activation.Softmax;
 
-            // Add the Softmax layer
-            modelBuilder.Softmax(softmaxLayer, outputLayer);
+            // Add the Softmax layer if the last layer is not already a Softmax layer
+            if (!lastLayerIsSoftmax)
+            {
+                // Get the output layer name
+                string outputLayer = modelBuilder.model.outputs[outputLayerIndex];
+
+                // Add the Softmax layer
+                modelBuilder.Softmax(softmaxLayer, outputLayer);
+            }
         }
 
         /// <summary>
@@ -70,7 +78,6 @@ namespace BarracudaInferenceToolkit
             // Check if the model is using a Compute Shader backend
             useAsyncGPUReadback = engine.Summary().Contains("Unity.Barracuda.ComputeVarsWithSharedModel") ? useAsyncGPUReadback : false;
         }
-
 
         /// <summary>
         /// Load the class labels from the provided JSON file.

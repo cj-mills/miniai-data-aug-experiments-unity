@@ -278,7 +278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5323308266888595389, guid: 08eb2b01a2de9654a8e6b73da219a9a9, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UpdateConfidenceThreshold
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5924998817978027136, guid: 08eb2b01a2de9654a8e6b73da219a9a9, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -843,7 +843,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1290204706}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b79a5a6c1b5c78845a8d01177b14c065, type: 3}
+  m_Script: {fileID: 11500000, guid: 99763263d6774fd6a7dd6232d2e88583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 5022602860645237092, guid: 87ac67f0c08f6ab49a105e5d6892b3f2, type: 3}

@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using MediaDisplay;
+using CJM.MediaDisplay;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System;

@@ -1,4 +1,4 @@
-using BarracudaInferenceToolkit;
+using CJM.BarracudaInferenceToolkit;
 using System;
 using System.Linq;
 using UnityEngine;

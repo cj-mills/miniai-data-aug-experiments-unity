@@ -819,6 +819,7 @@ MonoBehaviour:
   inferenceUI: {fileID: 1290204707}
   screenRenderer: {fileID: 1691310735}
   printDebugMessages: 0
+  useAsyncGPUReadback: 0
 --- !u!4 &1290204711
 Transform:
   m_ObjectHideFlags: 0

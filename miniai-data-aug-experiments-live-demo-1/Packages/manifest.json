@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.cj-mills.barracuda-inference-toolkit": "https://github.com/cj-mills/barracuda-inference-toolkit.git",
+    "com.cj-mills.barracuda-inference-toolkit": "https://github.com/cj-mills/unity-barracuda-inference-toolkit.git",
     "com.cj-mills.cv-image-gallery": "https://github.com/cj-mills/unity-cv-image-gallery.git",
     "com.cj-mills.unity-media-display": "https://github.com/cj-mills/Unity-Media-Display.git",
     "com.unity.barracuda": "3.0.0",

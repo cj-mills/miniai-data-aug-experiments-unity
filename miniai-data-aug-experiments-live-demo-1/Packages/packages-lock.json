@@ -1,11 +1,13 @@
 {
   "dependencies": {
     "com.cj-mills.barracuda-inference-toolkit": {
-      "version": "https://github.com/cj-mills/barracuda-inference-toolkit.git",
+      "version": "https://github.com/cj-mills/unity-barracuda-inference-toolkit.git",
       "depth": 0,
       "source": "git",
-      "dependencies": {},
-      "hash": "8576daaebea21156d894e487515cf26789901dea"
+      "dependencies": {
+        "com.unity.barracuda": "3.0.0"
+      },
+      "hash": "308efecd6706a716c348305aa7cb08a5affcd0cf"
     },
     "com.cj-mills.cv-image-gallery": {
       "version": "https://github.com/cj-mills/unity-cv-image-gallery.git",
@@ -19,7 +21,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "016e8e8ff75d6189d9f0b2cb0989decc77d260ce"
+      "hash": "b969799f42c513472710765f529e41a016d61c01"
     },
     "com.unity.2d.animation": {
       "version": "9.0.1",

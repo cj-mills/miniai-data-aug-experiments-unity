@@ -18,6 +18,11 @@ public class InferenceController : MonoBehaviour
     [SerializeField] private MeshRenderer screenRenderer;
     [SerializeField] private bool printDebugMessages = false;
 
+    // Output processing settings
+    [Header("Output Processing")]
+    [SerializeField, Tooltip("Flag to enable/disable async GPU readback for model output")]
+    private bool useAsyncGPUReadback = false;
+
     private void Update()
     {
         if (!AreComponentsValid()) return;
@@ -29,7 +34,10 @@ public class InferenceController : MonoBehaviour
         var inputTexture = RenderTexture.GetTemporary(inputDims.x, inputDims.y, 24, RenderTextureFormat.ARGBHalf);
         Graphics.Blit(imageTexture, inputTexture);
         ProcessInputImage(inputTexture);
-        var outputArray = modelRunner.ExecuteModel(inputTexture);
+
+        // Get the model output and process the detected objects
+        float[] outputArray = GetModelOutput(inputTexture, useAsyncGPUReadback);
+        //var outputArray = modelRunner.ExecuteModel(inputTexture);
         UpdateUI(outputArray);
         RenderTexture.ReleaseTemporary(inputTexture);
     }
@@ -61,6 +69,29 @@ public class InferenceController : MonoBehaviour
         else
         {
             imageProcessor.ProcessImageShader(inputTexture);
+        }
+    }
+
+    /// <summary>
+    /// Get the model output either using async GPU readback or by copying the output to an array.
+    /// </summary>
+    /// <param name="inputTexture">The processed input RenderTexture</param>
+    /// <param name="useAsyncReadback">Flag to indicate if async GPU readback should be used</param>
+    /// <returns>An array of float values representing the model output</returns>
+    private float[] GetModelOutput(RenderTexture inputTexture, bool useAsyncReadback)
+    {
+        // Run the model with the processed input texture
+        modelRunner.ExecuteModel(inputTexture);
+        RenderTexture.ReleaseTemporary(inputTexture);
+
+        // Get the model output using async GPU readback or by copying the output to an array
+        if (useAsyncReadback)
+        {
+            return modelRunner.CopyOutputWithAsyncReadback();
+        }
+        else
+        {
+            return modelRunner.CopyOutputToArray();
         }
     }
 

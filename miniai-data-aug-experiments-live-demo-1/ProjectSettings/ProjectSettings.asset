@@ -587,7 +587,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    WebGL: CJM_UNITY_MEDIA_DISPLAY
+    WebGL: CJM_UNITY_MEDIA_DISPLAY;CJM_BARRACUDA_INFERENCE_TOOLKIT
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

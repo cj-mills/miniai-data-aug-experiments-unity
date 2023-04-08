@@ -8,15 +8,11 @@ using TMPro;
 public class InferenceUI : MonoBehaviour
 {
     [Header("UI Components")]
-    [SerializeField] private Slider confidenceThresholdSlider;
     [SerializeField] private TextMeshProUGUI predictedClassText;
     [SerializeField] private TextMeshProUGUI fpsText;
+    [SerializeField] private Slider confidenceThresholdSlider;
 
     [Header("Settings")]
-    [SerializeField, Tooltip("On-screen text color")]
-    private Color textColor = Color.red;
-    [SerializeField, Tooltip("Maximum font size for on-screen text"), Range(10, 99)]
-    private int maxFontSize = 24;
     [SerializeField, Tooltip("Time in seconds between refreshing fps value"), Range(0.01f, 1.0f)]
     private float fpsRefreshRate = 0.1f;
     [SerializeField, Tooltip("Option to display fps")]
@@ -35,21 +31,6 @@ public class InferenceUI : MonoBehaviour
     {
         confidenceThresholdSlider.onValueChanged.AddListener(UpdateConfidenceThreshold);
         minConfidence = confidenceThresholdSlider.value;
-
-        // Set up Auto Size for predictedClassText and fpsText
-        SetAutoSize(predictedClassText);
-        SetAutoSize(fpsText);
-    }
-
-    /// <summary>
-    /// Enables Auto Size and sets the minimum and maximum font size for the given TextMeshProUGUI object.
-    /// </summary>
-    /// <param name="textObject">The TextMeshProUGUI object to configure.</param>
-    private void SetAutoSize(TextMeshProUGUI textObject)
-    {
-        textObject.enableAutoSizing = true;
-        textObject.fontSizeMin = 0;
-        textObject.fontSizeMax = maxFontSize;
     }
 
     /// <summary>
@@ -88,7 +69,6 @@ public class InferenceUI : MonoBehaviour
 
         string content = modelLoaded ? $"Predicted Class: {labelText}" : "Loading Model...";
         predictedClassText.text = content;
-        predictedClassText.color = textColor;
     }
 
     /// <summary>
@@ -100,7 +80,6 @@ public class InferenceUI : MonoBehaviour
         {
             int fps = (int)(1f / Time.unscaledDeltaTime);
             fpsText.text = $"FPS: {fps}";
-            fpsText.color = textColor;
 
             fpsTimer = Time.unscaledTime + fpsRefreshRate;
         }
